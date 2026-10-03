@@ -1,0 +1,357 @@
+/* PLUMBING_V 1 — reset tecnico canonico (Toolkit/boilerplate/plumbing.css) */
+[hidden] { display: none !important; }
+img { max-width: 100%; height: auto; }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
+}
+
+/* ══════════ ALAIN BARBER STUDIO — barbiere, Via Lomellina 24 ══════════
+   La pagina fa la strada di chi arriva: l'insegna nera col romano bianco (tutto al centro), la vetrina nel bugnato color sabbia con
+   le valigie di cuoio (la firma, _abs_firma.mjs), poi dentro: i servizi come cartellini da valigia sull'antracite delle pareti, le
+   foto in cornici nere sul muro bianco sotto la ringhiera del soppalco e la pelle di mucca, le recensioni sul cuoio cucito.
+   Baskervville SC per il nome e i titoli, Baskervville per il testo, Homenaje (stretto e spaziato, come «BARBER STUDIO») per le etichette. */
+:root {
+  --nero: #161718;
+  --nero-2: #0E0F10;
+  --parete: #262932;
+  --bianco: #F3EFE7;
+  --muro: #F1EEE8;
+  --sabbia: #DCC5A2;
+  --pietra: #B9B4A4;
+  --cuoio: #C4844A;
+  --cuoio-chiaro: #D9A066;
+  --inchiostro: #24150A;
+  --scuro: #1C1B1A;
+  --carta: #EFE4CC;
+  --filo: #3A3B3E;
+  --aperto: #3E9B5F;
+  --f-titoli: 'Baskervville SC', 'Baskervville', Georgia, 'Times New Roman', serif;
+  --f-testo: 'Baskervville', Georgia, 'Times New Roman', serif;
+  --f-etichette: 'Homenaje', 'Arial Narrow', Arial, sans-serif;
+  --gutter: 18px;
+  --testata-h: 64px;
+}
+@media (min-width: 760px) { :root { --gutter: 28px; } }
+
+/* le cifre sempre allineate: Baskervville di suo le ha «minuscole», e ogni `font:` abbreviato rimetterebbe quelle (per questo !important) */
+*, *::before, *::after { box-sizing: border-box; font-variant-numeric: lining-nums !important; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body { margin: 0; color: var(--bianco); font: 500 1.14rem/1.6 var(--f-testo); background: var(--nero); }
+a { color: inherit; }
+b, strong { font-weight: 700; }
+figure { margin: 0; }
+.salta { position: absolute; left: 12px; top: -60px; z-index: 100; padding: 10px 16px; background: #fff; color: #111; text-decoration: none; }
+.salta:focus { top: 10px; }
+.visually-hidden { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+section[id] { scroll-margin-top: calc(var(--testata-h) + 10px); }
+.intero { white-space: nowrap; }
+:focus-visible { outline: 3px solid var(--cuoio-chiaro); outline-offset: 3px; }
+.stanza--bugnato :focus-visible, .stanza--muro :focus-visible, .stanza--cuoio :focus-visible { outline-color: var(--scuro); }
+/* finché i caratteri non arrivano il ripiego è più largo: una parola lunga va a capo invece di uscire */
+h1, h2, h3 { overflow-wrap: anywhere; }
+
+/* ── l'occhiello: il bastone stretto e spaziato di «BARBER STUDIO», fra due fili ── */
+.occhio { display: inline-flex; align-items: center; gap: 12px; margin: 0 0 12px; font: 400 1.15rem/1.3 var(--f-etichette); letter-spacing: .26em; text-transform: uppercase; color: var(--cuoio-chiaro); }
+.occhio::before { content: ''; flex: none; width: 30px; height: 1px; background: currentColor; }
+.occhio--scuro { color: #5A3A1B; }
+
+/* ── la testata: una riga nera ── */
+.testata { position: sticky; top: 0; z-index: 50; background: var(--nero-2); border-bottom: 1px solid var(--filo); }
+.testata__dentro { display: flex; align-items: center; gap: 10px; max-width: 1280px; margin: 0 auto; padding: 6px var(--gutter); min-height: 63px; }
+.marchio { display: inline-flex; flex-direction: column; min-width: 0; color: var(--bianco); text-decoration: none; line-height: 1; }
+.marchio__nome { font: 400 1.75rem/1 var(--f-titoli); letter-spacing: .08em; text-transform: uppercase; }
+.marchio__sotto { margin-top: 3px; font: 400 .84rem/1 var(--f-etichette); letter-spacing: .3em; text-transform: uppercase; white-space: nowrap; }
+.voci { display: none; }
+.testata__azioni { margin-left: auto; display: flex; align-items: center; gap: 8px; flex: none; }
+.lingue { display: flex; }
+.lingue button { min-width: 36px; min-height: 40px; padding: 1px 5px 0; border: 1px solid #6A6C70; background: transparent; color: var(--bianco); font: 400 1.05rem var(--f-etichette); letter-spacing: .08em; cursor: pointer; }
+.lingue button + button { border-left: 0; }
+.lingue button.is-on { background: var(--bianco); color: var(--nero); }
+.chiama { display: none; align-items: center; min-height: 42px; padding: 0 20px; background: var(--bianco); color: var(--nero); font: 400 1.15rem var(--f-etichette); letter-spacing: .2em; text-transform: uppercase; text-decoration: none; }
+.chiama:hover { background: var(--cuoio-chiaro); }
+.burger { display: inline-flex; flex-direction: column; justify-content: center; gap: 5px; width: 44px; height: 44px; padding: 10px; border: 1px solid #6A6C70; background: transparent; cursor: pointer; }
+.burger span { display: block; height: 2px; background: var(--bianco); transition: transform .2s, opacity .2s; }
+.burger[aria-expanded="true"] span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.burger[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+.burger[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+.menu-mobile { position: fixed; top: var(--testata-h); left: 0; right: 0; z-index: 49; max-height: calc(100vh - var(--testata-h)); overflow-y: auto; padding: 8px var(--gutter) 24px; background: var(--nero-2); box-shadow: 0 14px 26px rgba(0, 0, 0, .5); }
+.menu-mobile a { display: block; padding: 13px 2px 11px; border-bottom: 1px solid var(--filo); color: var(--bianco); font: 400 1.7rem/1.15 var(--f-titoli); text-decoration: none; }
+.menu-mobile__tel { display: flex !important; justify-content: center; gap: 10px; margin-top: 16px; border: 0 !important; background: var(--bianco); color: var(--nero) !important; padding: 14px 8px !important; font: 400 1.3rem/1.2 var(--f-etichette) !important; letter-spacing: .16em; text-transform: uppercase; }
+
+/* ── l'insegna: tutto al centro, sul nero ── */
+.insegna { padding: 34px 0 58px; background: var(--nero); text-align: center; }
+.insegna__pannello { max-width: 1060px; margin: 0 auto; padding: 0 var(--gutter); }
+.insegna .occhio::after { content: ''; flex: none; width: 30px; height: 1px; background: currentColor; }
+.insegna__nome { margin: 4px 0 20px; line-height: 1; color: var(--bianco); }
+.insegna__alain { display: block; font: 400 clamp(4.4rem, 21vw, 14rem)/.98 var(--f-titoli); letter-spacing: .03em; text-transform: uppercase; }
+.insegna__sotto { display: block; margin-top: .25em; padding-left: .34em; font: 400 clamp(1.15rem, 4.6vw, 2.5rem)/1.2 var(--f-etichette); letter-spacing: .34em; text-transform: uppercase; }
+.insegna__frase { margin: 0 0 10px; font: italic 500 clamp(1.3rem, 1.05rem + 1.2vw, 1.9rem)/1.3 var(--f-testo); color: var(--cuoio-chiaro); }
+.insegna__testo { max-width: 34em; margin: 0 auto 22px; }
+/* stato e voto su righe loro: lo stato scritto dal JS è più lungo di quello statico */
+.insegna__riga { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+.voto { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: center; gap: 2px 10px; margin: 0; }
+.voto__n { font: 400 2.3rem/1 var(--f-titoli); color: var(--bianco); }
+.stato { display: inline-flex; align-items: center; gap: 9px; margin: 0; font: 500 1.1rem/1.4 var(--f-testo); }
+.stato::before { content: ''; width: 10px; height: 10px; border-radius: 50%; background: currentColor; opacity: .45; flex: none; }
+.stato.is-aperto::before { opacity: 1; background: var(--aperto); box-shadow: 0 0 0 3px rgba(62, 155, 95, .28); }
+.insegna__azioni { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: 24px; }
+.bottone { display: inline-flex; flex-wrap: wrap; align-items: center; justify-content: center; max-width: 100%; min-height: 54px; padding: 4px 26px; border: 1.5px solid var(--bianco); background: transparent; color: var(--bianco); font: 400 1.3rem/1.15 var(--f-etichette); letter-spacing: .18em; text-transform: uppercase; text-align: center; text-decoration: none; cursor: pointer; transition: background .15s, color .15s; }
+.bottone--pieno { background: var(--bianco); color: var(--nero); }
+.bottone--pieno:hover { background: var(--cuoio-chiaro); border-color: var(--cuoio-chiaro); }
+.bottone--vuoto:hover { background: var(--bianco); color: var(--nero); }
+
+/* le tre foto che si sovrappongono (sul telefono: la facciata, poi le altre due affiancate) */
+.tris { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 26px 14px; max-width: 1180px; margin: 46px auto 0; padding: 0 var(--gutter); }
+.tris__foto--b { grid-column: 1 / -1; grid-row: 1; width: min(100%, 420px); justify-self: center; }
+.foto { display: block; width: 100%; padding: 0; border: 0; background: none; cursor: zoom-in; }
+.foto img { display: block; width: 100%; height: auto; }
+.tris .foto { box-shadow: 0 18px 38px rgba(0, 0, 0, .55); }
+.tris figcaption { margin-top: 10px; font: 400 1rem/1.35 var(--f-etichette); letter-spacing: .16em; text-transform: uppercase; color: var(--pietra); }
+
+/* ── le stanze ── */
+.stanza { --lato: max(var(--gutter), calc((100vw - 1180px) / 2)); padding: 72px var(--lato) 78px; }
+.stanza--bugnato { background-color: var(--sabbia); background-image: repeating-linear-gradient(180deg, transparent 0 92px, rgba(110, 84, 48, .3) 92px 94px, rgba(255, 250, 235, .4) 94px 96px); color: var(--scuro); }
+.stanza--parete { background: var(--parete); }
+.stanza--muro { padding-top: 0; background: var(--muro); color: var(--scuro); }
+.stanza--cuoio { background: var(--cuoio); color: var(--inchiostro); }
+.stanza--nero { background: var(--nero); }
+.stanza__titolo { max-width: 20em; margin: 0 0 18px; font: 400 clamp(2.3rem, 1.5rem + 3.4vw, 4.2rem)/1.06 var(--f-titoli); letter-spacing: .01em; text-wrap: balance; }
+.stanza__intro { max-width: 34em; margin: 0 0 14px; font-size: 1.2rem; }
+.stanza__nota { max-width: 46em; margin: 30px 0 0; }
+
+/* la vetrina: il testo e il disegno, dentro la cornice di pietra */
+.vetrina { display: grid; gap: 30px; align-items: center; }
+.vetrina-fig { -webkit-user-select: none; user-select: none; }
+/* il testo su una lastra liscia murata nel bugnato, la didascalia e i bottoni sul fondo pieno: i giunti non passano sotto le righe */
+.vetrina__testo { width: 100%; max-width: 600px; margin: 0 auto; padding: 26px 22px 14px; background-color: #E4D1B1; box-shadow: inset 0 0 0 1px rgba(110, 84, 48, .34), 0 8px 18px rgba(70, 48, 18, .14); }
+.vetrina__testo .stanza__titolo { font-size: clamp(2.3rem, 1.4rem + 2.4vw, 3.7rem); }
+.vetrina-fig > svg { max-width: 600px; margin: 0 auto; border: 12px solid var(--pietra); box-shadow: 0 0 0 1px #8F8A79, 0 16px 30px rgba(70, 48, 18, .28); }
+.vetrina__didascalia { max-width: 34em; min-height: 3.2em; margin: 16px auto 0; padding: 0 10px; background-color: var(--sabbia); font-size: 1.08rem; line-height: 1.5; text-align: center; text-wrap: balance; color: #33240F; }
+.vetrina__d { display: none; }
+.vetrina-fig[data-modo="0"] .vetrina__d[data-m="0"], .vetrina-fig[data-modo="1"] .vetrina__d[data-m="1"] { display: inline; }
+.vetrina__modi { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 12px; }
+.vetrina__modi button { min-height: 48px; padding: 2px 28px 0; border: 1.5px solid var(--scuro); background: var(--sabbia); color: var(--scuro); font: 400 1.3rem/1 var(--f-etichette); letter-spacing: .2em; text-transform: uppercase; cursor: pointer; }
+.vetrina__modi button:hover { background: #CDB48D; }
+.vetrina__modi button[aria-pressed="true"] { background: var(--nero); color: var(--bianco); }
+/* senza JS il modo non cambia: i bottoni restano nascosti col loro posto */
+.no-js .vetrina__modi { visibility: hidden; }
+
+/* in poltrona: i cartellini da valigia, appesi allo spago */
+.cartellini { display: grid; grid-template-columns: minmax(0, 1fr); gap: 42px 24px; margin: 0; padding: 30px 0 0; list-style: none; }
+.cartellino { position: relative; padding: 40px 22px 22px; color: var(--inchiostro); background-color: var(--carta); background-image: linear-gradient(135deg, var(--parete) 15px, transparent 15.5px), linear-gradient(225deg, var(--parete) 15px, transparent 15.5px); }
+.cartellino::before { content: ''; position: absolute; left: 50%; top: 12px; width: 14px; height: 14px; margin-left: -7px; border-radius: 50%; background: var(--parete); box-shadow: 0 0 0 3px #B99D78; }
+.cartellino::after { content: ''; position: absolute; left: 50%; top: -30px; width: 2px; height: 48px; margin-left: -1px; background: #CDB98F; transform: rotate(6deg); transform-origin: 50% 100%; }
+.cartellino:nth-child(even)::after { transform: rotate(-5deg); }
+.cartellino h3 { margin: 0 0 8px; font: 400 1.75rem/1.1 var(--f-titoli); text-align: center; }
+.cartellino p { margin: 0; font-size: 1.08rem; line-height: 1.5; text-align: center; }
+/* il banco di legno: i prodotti e l'appuntamento */
+.banco { margin-top: 46px; padding: 22px 24px 24px; background-color: #5F3D20; border-top: 5px solid #8A5C32; box-shadow: 0 12px 24px rgba(0, 0, 0, .3); }
+.banco__riga { max-width: 46em; margin: 0 0 14px; }
+.banco__riga--forte { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 22px; max-width: none; margin-bottom: 0; font-size: 1.3rem; }
+
+/* sul muro bianco: la ringhiera del soppalco, la pelle di mucca, i quadri */
+.soppalco { position: relative; margin: 0 calc(-1 * var(--lato)) 50px; }
+.soppalco__ringhiera, .piede__ringhiera { height: 104px; border-top: 12px solid var(--nero-2); border-bottom: 16px solid var(--nero-2); background-color: #23262E; background-image: radial-gradient(circle at 17px 50%, transparent 0 8px, var(--nero-2) 8.5px 11px, transparent 11.5px), linear-gradient(90deg, var(--nero-2) 0 3px, transparent 3px); background-size: 34px 100%, 34px 100%; }
+.soppalco__pelle { position: absolute; top: 0; right: 5%; width: min(52%, 500px); height: auto; }
+.pelle__ombra { fill: rgba(40, 30, 20, .2); }
+.pelle__vello { fill: #FBF9F4; stroke: #CFC8B8; stroke-width: 1.5; }
+.pelle__macchia { fill: #17181A; }
+.quadri { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 26px 16px; margin: 30px 0 0; padding: 0; list-style: none; }
+.quadro .foto { padding: 10px; border: 8px solid #17181A; background: #FFFFFF; box-shadow: 0 10px 22px rgba(40, 30, 20, .24); }
+.quadro img { aspect-ratio: 3 / 4; height: auto; object-fit: cover; }
+.quadro figcaption { margin-top: 12px; font: 400 1.02rem/1.35 var(--f-etichette); letter-spacing: .16em; text-transform: uppercase; text-align: center; color: var(--scuro); }
+.stanza--muro .stanza__nota a { color: #5A3A1B; }
+
+/* sul cuoio: le recensioni, dentro la cucitura */
+.stanza--cuoio { padding-top: 46px; padding-bottom: 50px; }
+.cuoio { position: relative; padding: 46px clamp(16px, 4vw, 54px) 42px; border: 2px dashed #F3D6AC; border-radius: 16px; }
+.cuoio::before, .cuoio::after { content: ''; position: absolute; left: 12px; right: 12px; height: 14px; background-image: radial-gradient(circle at 7px 7px, #E6EAED 0 4px, #5E666E 4.5px 6px, transparent 6.5px), radial-gradient(circle at calc(100% - 7px) 7px, #E6EAED 0 4px, #5E666E 4.5px 6px, transparent 6.5px); pointer-events: none; }
+.cuoio::before { top: 12px; }
+.cuoio::after { bottom: 12px; }
+.stanza--cuoio .occhio--scuro { color: var(--inchiostro); }
+.voto--sezione { justify-content: flex-start; margin: 0 0 28px; }
+.stanza--cuoio .voto__n { color: var(--inchiostro); }
+/* in colonne che si riempiono dall'alto: sette recensioni di lunghezze diverse non lasciano buchi */
+.recensioni { column-count: 1; column-gap: 38px; margin: 0; padding: 0; list-style: none; }
+.recensione { break-inside: avoid; margin: 0 0 24px; padding: 0 0 20px; border-bottom: 1.5px dashed rgba(36, 21, 10, .5); }
+.recensione__testo { margin: 0; font-size: 1.12rem; line-height: 1.55; overflow-wrap: anywhere; }
+.recensione__chi { margin: 12px 0 0; font-size: 1.02rem; line-height: 1.4; }
+.recensione__chi b { display: block; font: 400 1.25rem/1.2 var(--f-etichette); letter-spacing: .16em; text-transform: uppercase; }
+.recensioni__nota { max-width: 46em; margin: 26px 0 0; font-size: 1.05rem; }
+
+/* orari e strada */
+.orari-riga { display: grid; gap: 34px; align-items: start; }
+.orario { max-width: 470px; padding: 20px 22px 22px; background: var(--nero-2); border: 1px solid var(--filo); }
+.orario__titolo { margin: 0 0 8px; font: 400 2rem/1.1 var(--f-titoli); }
+.giorno { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 10px; padding: 9px 10px 8px; border-bottom: 1px solid #2B2C2F; }
+.giorno:last-child { border-bottom: 0; }
+.giorno__ore { margin-left: auto; white-space: nowrap; }
+.giorno.is-today { background: rgba(217, 160, 102, .18); box-shadow: inset 3px 0 0 var(--cuoio-chiaro); }
+.orario .stato { margin-top: 16px; }
+.orari__nota { margin: 12px 0 0; font-size: 1.02rem; color: #CFCAC0; }
+.indirizzo { margin: 0 0 22px; }
+.indirizzo div { display: grid; grid-template-columns: 8.4em minmax(0, 1fr); gap: 10px; padding: 10px 0 8px; border-bottom: 1px solid #2B2C2F; }
+.indirizzo dt { font: 400 1.12rem/1.5 var(--f-etichette); letter-spacing: .2em; text-transform: uppercase; color: var(--cuoio-chiaro); }
+.indirizzo dd { margin: 0; overflow-wrap: anywhere; }
+.dove__azioni { display: flex; flex-wrap: wrap; gap: 12px; margin: 0; }
+.cartina { margin-top: 40px; overflow: hidden; background: var(--muro); color: var(--scuro); border: 1px solid var(--filo); }
+.cartina a { color: var(--scuro); }
+.cartina iframe { display: block; width: 100%; height: 380px; border: 0; }
+.cartina .mappa-clic__nota { font-size: 1rem; }
+
+/* le domande */
+.domande { max-width: 820px; border-top: 1px solid #555963; }
+.domanda { border-bottom: 1px solid #555963; }
+.domanda summary { position: relative; padding: 16px 40px 13px 2px; font: 400 1.6rem/1.2 var(--f-titoli); cursor: pointer; list-style: none; }
+.domanda summary::-webkit-details-marker { display: none; }
+.domanda summary::after { content: '+'; position: absolute; right: 8px; top: 14px; font: 400 1.7rem/1 Arial, sans-serif; color: var(--cuoio-chiaro); }
+.domanda[open] summary::after { content: '−'; }
+.domanda p { max-width: 40em; margin: 0 0 18px; }
+
+/* ── il piede: sotto la ringhiera ── */
+.piede { background: var(--nero-2); color: #D8D3C9; }
+.piede__ringhiera { height: 84px; }
+.piede__dentro { max-width: 900px; margin: 0 auto; padding: 44px var(--gutter) 104px; text-align: center; }
+.piede__marchio { display: inline-flex; flex-direction: column; max-width: 100%; margin: 0 0 20px; color: var(--bianco); line-height: 1; }
+.piede__marchio .marchio__nome { font-size: 3.4rem; }
+.piede__marchio .marchio__sotto { margin-top: 6px; padding-left: .3em; font-size: 1.05rem; }
+.piede__dove, .piede__orario { margin: 0 0 8px; overflow-wrap: anywhere; }
+.piede__cred { max-width: 52em; margin: 18px auto 10px; font-size: 1.02rem; }
+.freccia { font-family: Arial, sans-serif; }
+
+/* ── reveal (plumbing) ── */
+.js .reveal { opacity: 0; }
+.js .reveal.in-view { opacity: 1; }
+html:not(.js) .reveal { opacity: 1; }
+.reduced-motion .reveal { opacity: 1 !important; }
+
+/* ── la barra e la lightbox ── */
+.action-bar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 40; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); background: var(--nero-2); border-top: 1px solid #6A6C70; transform: translateY(110%); transition: transform .25s; }
+.action-bar.is-visible { transform: translateY(0); }
+.action-bar a { display: flex; align-items: center; justify-content: center; min-width: 0; min-height: 54px; padding: 2px 4px 0; overflow-wrap: anywhere; text-align: center; color: var(--bianco); font: 400 1.2rem var(--f-etichette); letter-spacing: .16em; text-transform: uppercase; text-decoration: none; }
+.action-bar a:first-child { background: var(--bianco); color: var(--nero); }
+#lightbox { position: fixed; inset: 0; z-index: 90; display: flex; align-items: center; justify-content: center; padding: 24px; background: rgba(10, 10, 11, .95); }
+#lightbox[hidden] { display: none !important; }
+#lightbox img { width: auto; max-width: min(1000px, 100%); max-height: 88vh; }
+#lightboxClose { position: absolute; top: 14px; right: 16px; width: 48px; height: 48px; border: 1px solid rgba(255, 255, 255, .6); border-radius: 50%; background: transparent; color: #fff; font-size: 32px; line-height: 1; cursor: pointer; }
+
+/* ── le larghezze ── */
+@media (max-width: 379px) {
+  .testata__dentro { gap: 6px; }
+  .lingue button { min-width: 32px; }
+  .bottone { padding: 4px 16px; letter-spacing: .12em; }
+  .indirizzo div { grid-template-columns: minmax(0, 1fr); gap: 0; }
+  .occhio { letter-spacing: .18em; }
+  .vetrina__modi button { padding: 2px 18px 0; }
+  /* coi caratteri di ripiego (più larghi) le scritte spaziate devono stare nella loro scatola (riserva-check) */
+  .marchio__sotto { letter-spacing: .18em; }
+  .quadro figcaption, .tris figcaption { font-size: .95rem; letter-spacing: .08em; overflow-wrap: anywhere; }
+}
+@media (max-width: 519px) {
+  /* in apertura l'indirizzo sta su una riga: senza i due fili ai lati */
+  .insegna .occhio { letter-spacing: .2em; }
+  .insegna .occhio::before, .insegna .occhio::after { display: none; }
+  /* dove e mezzi: l'etichetta sopra, il testo a tutta larghezza */
+  .indirizzo div { grid-template-columns: minmax(0, 1fr); gap: 0; }
+}
+@media (min-width: 560px) {
+  .chiama { display: inline-flex; }
+  .cartellini { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (min-width: 760px) {
+  .action-bar { display: none; }
+  .piede__dentro { padding-bottom: 56px; }
+  .insegna { padding-top: 46px; }
+  /* le foto si sovrappongono: la facciata davanti, le altre due spuntano ai lati */
+  .tris { display: flex; justify-content: center; align-items: flex-start; gap: 0; margin-top: 54px; }
+  .tris__foto--a { order: 1; width: 30%; margin-top: 13%; margin-right: -5%; }
+  .tris__foto--b { order: 2; width: 36%; position: relative; z-index: 2; }
+  .tris__foto--c { order: 3; width: 34%; margin-top: 6%; margin-left: -4%; }
+  .tris__foto--a figcaption { padding-right: 18%; }
+  .tris__foto--c figcaption { padding-left: 14%; }
+  .quadri { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 40px 34px; }
+  .quadro:nth-child(3n + 2) { margin-top: 38px; }
+  .recensioni { column-count: 2; }
+  .soppalco__pelle { width: min(44%, 500px); right: 7%; }
+}
+@media (min-width: 960px) {
+  .cartellini { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .recensioni { column-count: 3; }
+  .orari-riga { grid-template-columns: minmax(0, 470px) minmax(0, 1fr); gap: 60px; }
+}
+/* da 1100 px: le voci in testata stanno su una riga; la vetrina accanto alla lastra col testo */
+@media (min-width: 1100px) {
+  .vetrina { grid-template-columns: minmax(0, 1fr) minmax(0, 600px); gap: 56px; }
+  .vetrina__testo { max-width: none; }
+  .testata__dentro { gap: 16px; }
+  .voci { display: flex; flex-wrap: wrap; gap: 4px 26px; margin-left: 30px; }
+  .voci a { padding: 4px 1px 2px; color: var(--bianco); font: 400 1.15rem var(--f-etichette); letter-spacing: .2em; text-transform: uppercase; text-decoration: none; }
+  .voci a:hover, .voci a[aria-current="true"] { color: var(--cuoio-chiaro); text-decoration: underline; text-decoration-thickness: 1.5px; text-underline-offset: 7px; }
+  .burger { display: none; }
+}
+
+/*VALIGIE*/
+/* le valigie in vetrina — generato da _abs_firma.mjs: non modificare a mano */
+.vetrina__svg { display: block; width: 100%; height: auto; overflow: hidden; }
+.vl-telaio { fill: #0E0F10; }
+.vl-vetro { fill: #1D2026; }
+.vl-pavimento { fill: #34363B; }
+.vl-battiscopa { fill: none; stroke: #101114; stroke-width: 3; }
+.vl-filo { fill: none; stroke: #050506; stroke-width: 2.5; }
+.vl-campana { fill: #0B0C0D; stroke: #3A3D44; stroke-width: 1.5; }
+.vl-lume { fill: #FFF3D2; }
+.vl-alone { fill: #FFF3D2; opacity: .045; }
+.vl-ombra { fill: #3F2710; opacity: .22; }
+.vl-poltrona { opacity: .7; }
+.vl-pedana { fill: #5A5F67; stroke: #B4BBC2; stroke-width: 2; }
+.vl-basamento { fill: #ECEDEE; }
+.vl-seduta, .vl-schienale, .vl-poggiatesta { fill: #3B3E46; stroke: #C2C8CE; stroke-width: 3; }
+.vl-bracciolo { fill: none; stroke: #C2C8CE; stroke-width: 6; stroke-linecap: round; }
+.vl-cuoio { fill: #C4844A; stroke: #6A3F1C; stroke-width: 2; }
+.vl-luce { fill: none; stroke: #E0AA72; stroke-width: 3; stroke-linecap: round; opacity: .7; }
+.vl-giunta { fill: none; stroke: #6A3F1C; stroke-width: 1.8; }
+.vl-cucitura { fill: none; stroke: #F0CFA0; stroke-width: 1.3; stroke-dasharray: 5 4; opacity: .85; }
+.vl-angolo { fill: #A1662F; stroke: #6A3F1C; stroke-width: 1.4; }
+.vl-borchia { fill: #DDE2E6; stroke: #5E666E; stroke-width: 1; }
+.vl-cinghia { fill: #AD6F38; stroke: #6A3F1C; stroke-width: 1.3; }
+.vl-fibbia-ferma { fill: none; stroke: #D5DADF; stroke-width: 2.6; }
+.vl-ardiglione { fill: none; stroke: #D5DADF; stroke-width: 2; }
+.vl-maniglia { fill: none; stroke: #6A3F1C; stroke-width: 9; stroke-linecap: round; }
+.vl-maniglia-luce { fill: none; stroke: #B87840; stroke-width: 3; stroke-linecap: round; }
+.vl-cromo { fill: #D5DADF; stroke: #5E666E; stroke-width: 1.3; }
+.vl-cromo-segno { fill: none; stroke: #5E666E; stroke-width: 1.6; stroke-linecap: round; }
+.vl-interno { fill: #6B4423; stroke: #3F2710; stroke-width: 2; }
+.vl-fodera { fill: #835731; }
+.vl-tasca { fill: #76492A; stroke: #4A2D14; stroke-width: 1.4; }
+.vl-tasca-pieghe { fill: none; stroke: #4A2D14; stroke-width: 1.2; stroke-linecap: round; opacity: .8; }
+.vl-tirante { fill: none; stroke: #C4844A; stroke-width: 4; stroke-linecap: round; }
+.vl-gancio { fill: none; stroke: #D5DADF; stroke-width: 3; stroke-linecap: round; }
+.vl-ciotola { fill: #AEB6BD; stroke: #5E666E; stroke-width: 1.4; }
+.vl-ciotola-orlo { fill: #E3E7EA; stroke: #5E666E; stroke-width: 1.4; }
+.vl-schiuma { fill: #FFFFFF; }
+.vl-anello { fill: none; stroke: #DDE2E6; stroke-width: 3.6; }
+.vl-anello--piccolo { stroke-width: 2.4; }
+.vl-gambo { fill: none; stroke: #DDE2E6; stroke-width: 3.4; stroke-linecap: round; }
+.vl-lama { fill: #E9EDF0; stroke: #6B747C; stroke-width: 1; stroke-linejoin: round; }
+.vl-vite { fill: #6B747C; }
+.vl-manico { fill: #F1E8D3; stroke: #6D5B3E; stroke-width: 1.4; }
+.vl-ghiera { fill: #D5DADF; stroke: #5E666E; stroke-width: 1.2; }
+.vl-setole { fill: #B99A6C; stroke: #6D5B3E; stroke-width: 1.2; stroke-linejoin: round; }
+.vl-setole-punte { fill: #F4EDE0; }
+.vl-riflesso { fill: #FFFFFF; }
+.vl-lucido { fill: none; stroke: rgba(255, 255, 255, .16); stroke-width: 2; }
+.vl-davanzale { fill: #B9B4A4; }
+.vl-davanzale-luce { fill: none; stroke: #DAD6C9; stroke-width: 3; }
+.vetrina-fig[data-modo="0"] .modo:not([data-m="0"]) { display: none; }
+.vetrina-fig[data-modo="1"] .modo:not([data-m="1"]) { display: none; }
+.firma-attesa .vl-valigia { opacity: 0; }
+/*/VALIGIE*/
+
+/*MAPPACLIC*/
+/* la mappa Google si carica solo al clic (giro privacy 1/10/2026) */
+.mappa-clic { display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; min-height: var(--mappa-h, 320px); box-sizing: border-box; padding: 24px; text-align: center; background: repeating-linear-gradient(0deg, rgba(127, 127, 127, 0.14) 0 1px, transparent 1px 28px), repeating-linear-gradient(90deg, rgba(127, 127, 127, 0.14) 0 1px, transparent 1px 28px); }
+.mappa-clic__velo { display: flex; flex-direction: column; align-items: center; gap: 12px; max-width: 32em; }
+.mappa-clic__btn { display: inline-block; padding: 0.75em 1.4em; border: 2px solid currentColor; border-radius: 999px; color: inherit; font: inherit; font-weight: 600; line-height: 1.2; text-decoration: none; background: transparent; cursor: pointer; }
+.mappa-clic__btn:hover, .mappa-clic__btn:focus-visible { text-decoration: underline; }
+.mappa-clic__nota { margin: 0; font-size: 0.85em; line-height: 1.45; }
+/*/MAPPACLIC*/
